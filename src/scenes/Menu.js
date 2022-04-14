@@ -28,9 +28,12 @@ class Menu extends Phaser.Scene {
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press ← for Easy or → for Hard', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding + borderUISize, 'Press ↑ for Co-op', menuConfig).setOrigin(0.5);
 
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
     }
 
     update() {
@@ -38,7 +41,9 @@ class Menu extends Phaser.Scene {
           game.settings = {
             spaceshipSpeed: 3,
             gameTimer: 60000,
-            rocketAccel: 0    
+            rocketAccel: 0,
+            isCoop: false,
+            isMouse: false    
           }
           this.sound.play('sfx_select');
           this.scene.start("playScene");    
@@ -47,10 +52,38 @@ class Menu extends Phaser.Scene {
           game.settings = {
             spaceshipSpeed: 4,
             gameTimer: 45000,
-            rocketAccel: 0.15   
+            rocketAccel: 0.15,
+            isCoop: false,
+            isMouse: false   
           }
           this.sound.play('sfx_select');
           this.scene.start("playScene");    
         }
+
+        if (Phaser.Input.Keyboard.JustDown(keyUP)) {
+          game.settings = {
+            spaceshipSpeed: 4,
+            gameTimer: 45000,
+            rocketAccel: 0.15,
+            isCoop: true,
+            isMouse: false   
+          }
+          this.sound.play('sfx_select');
+          this.scene.start("playScene");    
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(keyDOWN)) {
+          game.settings = {
+            spaceshipSpeed: 4,
+            gameTimer: 45000,
+            rocketAccel: 0.15,
+            isCoop: true,
+            isMouse: false   
+          }
+          this.sound.play('sfx_select');
+          this.scene.start("playScene");    
+        }
+
+
       }
 }

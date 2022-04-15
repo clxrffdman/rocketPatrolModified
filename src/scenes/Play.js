@@ -71,20 +71,58 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        
 
         //game condition
         this.gameOver = false;
 
         //clock
         scoreConfig.fixedWidth = 0;
-        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+        // this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+            
+        // }, null, this);
+
+        this.currentTime = game.settings.gameTimer;
+        this.timeRight = this.add.text(game.config.width - borderPadding*15, borderUISize + borderPadding*2, this.currentTime/1000, scoreConfig);
+
+        
+
+        
+        
+    }
+
+    
+
+    update(time, delta) {
+
+        
+
+        if(this.currentTime > 0 && this.gameOver == false){
+            this.currentTime -= 16.7;
+            this.timeRight.text = Math.round(this.currentTime/1000);
+        }
+        else{
+
+            let scoreConfig = {
+                fontFamily: 'Courier',
+                fontSize: '28px',
+                backgroundColor: '#F3B141',
+                color: '#843605',
+                align: 'right',
+                padding: {
+                    top: 5,
+                    bottom: 5,
+                },
+                fixedWidth: 100
+            }
+
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
-        }, null, this);
-    }
+        }
 
-    update() {
+
+
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             game.settings.spaceshipSpeed = 4;
             this.scene.restart();    
@@ -223,6 +261,7 @@ class Play extends Phaser.Scene {
         });
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score; 
+        this.currentTime += 3000;
         
         this.sound.play('sfx_explosion');
       }

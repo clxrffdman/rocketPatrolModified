@@ -116,6 +116,8 @@ class Play extends Phaser.Scene {
                 fixedWidth: 100
             }
 
+            scoreConfig.fixedWidth = 0;
+
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;

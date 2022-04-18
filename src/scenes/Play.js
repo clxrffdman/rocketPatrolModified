@@ -85,9 +85,16 @@ class Play extends Phaser.Scene {
         this.currentTime = game.settings.gameTimer;
         this.timeRight = this.add.text(game.config.width - borderPadding*15, borderUISize + borderPadding*2, this.currentTime/1000, scoreConfig);
 
-        
+        this.timer = this.time.addEvent({
+            delay: 1000,
+            callback: decreaseTime,
+            callbackScope: this,
+            loop: true
+        });
 
-        
+        function decreaseTime(){
+            this.currentTime -= 1000;
+        }
         
     }
 
@@ -98,7 +105,7 @@ class Play extends Phaser.Scene {
         
 
         if(this.currentTime > 0 && this.gameOver == false){
-            this.currentTime -= 16.7;
+            //this.currentTime -= 16.7;
             this.timeRight.text = Math.round(this.currentTime/1000);
         }
         else{

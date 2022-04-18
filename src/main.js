@@ -14,6 +14,7 @@ let config = {
     height: 480,
     fps: {
         target: 60,
+        forceSetTimeout: true
     },
     scene: [ Menu, Play ]
     

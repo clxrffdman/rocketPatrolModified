@@ -102,7 +102,12 @@ class Play extends Phaser.Scene {
 
     update(time, delta) {
 
-        
+        this.frameTime += delta;
+
+        if(this.frameTime > 16.5){
+            this.frameTime = 0;
+            g.gameTick++;
+        }
 
         if(this.currentTime > 0 && this.gameOver == false){
             //this.currentTime -= 16.7;
